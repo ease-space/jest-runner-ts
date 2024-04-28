@@ -1,0 +1,19 @@
+{
+  "name": "jest-runner-ts",
+  "version": "1.0.0",
+  "description": "Jest runner for TypeScript compiler",
+  "homepage": "https://github.com/ease-space/jest-runner-ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ease-space/jest-runner-ts.git"
+  },
+  "license": "MIT",
+  "author": "Yurii Maistrenko",
+  "scripts": {
+    "build": "babel src -d build"
+  },
+  "dependencies": {
+    "cosmiconfig": "9.0.0",
+    "create-jest-runner": "0.12.3"
+  }
+}

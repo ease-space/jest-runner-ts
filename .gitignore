@@ -1,0 +1,12 @@
+# Node.js
+#
+node_modules
+yarn-error.log
+
+# Build
+#
+build
+
+#JetBrains IDE
+#
+.idea
