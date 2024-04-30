@@ -1,0 +1,35 @@
+{
+  "name": "jest-runner-ts",
+  "version": "1.0.0",
+  "description": "Jest runner for TypeScript compiler",
+  "homepage": "https://github.com/ease-space/jest-runner-ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ease-space/jest-runner-ts.git"
+  },
+  "license": "MIT",
+  "author": "Ease Space",
+  "main": "build/runner",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "remove:build": "rimraf build",
+    "build": "yarn run remove:build && babel src -d build",
+    "format": "prettier --write \"./**/*.js\""
+  },
+  "dependencies": {
+    "cosmiconfig": "9.0.0",
+    "create-jest-runner": "0.12.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.24.1",
+    "@babel/core": "7.24.4",
+    "@babel/preset-env": "7.24.4",
+    "eslint": "8.57.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-prettier": "5.1.3",
+    "prettier": "3.2.5",
+    "rimraf": "5.0.5"
+  }
+}
