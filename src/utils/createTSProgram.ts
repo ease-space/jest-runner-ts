@@ -1,7 +1,7 @@
 import fs from 'fs';
 import ts from 'typescript';
 
-const createTSProgram = (tsconfigPath: string, fileTestPath: string) => {
+const createTSProgram = (tsconfigPath: string, testPath: string) => {
   const configContents = fs.readFileSync(tsconfigPath).toString();
 
   const { config, error } = ts.parseConfigFileTextToJson(
@@ -13,7 +13,7 @@ const createTSProgram = (tsconfigPath: string, fileTestPath: string) => {
 
   const options = Object.assign({}, { noEmit: true }, settings.options);
 
-  const program = ts.createProgram([fileTestPath], options);
+  const program = ts.createProgram([testPath], options);
 
   return {
     program,
