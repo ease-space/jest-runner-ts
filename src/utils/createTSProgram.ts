@@ -2,11 +2,11 @@ import fs from 'fs';
 import ts from 'typescript';
 
 const createTSProgram = (tsconfigPath: string, testPath: string) => {
-  const configContents = fs.readFileSync(tsconfigPath).toString();
+  const tsconfigJsonText = fs.readFileSync(tsconfigPath).toString();
 
   const { config, error } = ts.parseConfigFileTextToJson(
     tsconfigPath,
-    configContents,
+    tsconfigJsonText,
   );
 
   const settings = ts.convertCompilerOptionsFromJson(config, process.cwd());
