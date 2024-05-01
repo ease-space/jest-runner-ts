@@ -5,7 +5,7 @@ const explorerSync = cosmiconfigSync('jest-runner-ts');
 const getExtraOptions = () => {
   const searchedFor = explorerSync.search();
 
-  return searchedFor?.config ?? {};
+  return searchedFor?.config || {};
 };
 
 export default getExtraOptions;
