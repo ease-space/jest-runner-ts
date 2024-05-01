@@ -1,7 +1,12 @@
+import path from 'path';
 import fs from 'fs';
 import ts from 'typescript';
 
-const createTSProgram = (tsconfigPath: string, testPath: string) => {
+const createTSProgram = (
+  rootDir: string,
+  testPath: string,
+  tsconfigPath: string = path.resolve(rootDir, 'tsconfig.json'),
+) => {
   const tsconfigJsonText = fs.readFileSync(tsconfigPath).toString();
 
   const { config, error } = ts.parseConfigFileTextToJson(
