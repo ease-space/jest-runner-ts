@@ -7,29 +7,23 @@ const createTSProgram = (
   testPath: string,
   tsconfigPath: string = path.resolve(rootDir, 'tsconfig.json'),
 ) => {
-  const isExist = fs.existsSync(tsconfigPath);
+  const tsconfigJsonText = fs.readFileSync(tsconfigPath).toString();
 
-  if (isExist) {
-    const tsconfigJsonText = fs.readFileSync(tsconfigPath).toString();
+  const { config, error } = ts.parseConfigFileTextToJson(
+    tsconfigPath,
+    tsconfigJsonText,
+  );
 
-    const { config, error } = ts.parseConfigFileTextToJson(
-      tsconfigPath,
-      tsconfigJsonText,
-    );
+  const settings = ts.convertCompilerOptionsFromJson(config, process.cwd());
 
-    const settings = ts.convertCompilerOptionsFromJson(config, process.cwd());
+  const options = Object.assign({}, { noEmit: true }, settings.options);
 
-    const options = Object.assign({}, { noEmit: true }, settings.options);
+  const program = ts.createProgram([testPath], options);
 
-    const program = ts.createProgram([testPath], options);
-
-    return {
-      program,
-      error,
-    };
-  } else {
-    throw new Error('No such tsconfig file');
-  }
+  return {
+    program,
+    error,
+  };
 };
 
 export default createTSProgram;
