@@ -12,4 +12,4 @@ const getExtraOptions = () => {
   return {};
 };
 
-module.exports = getExtraOptions;
+export default getExtraOptions;
