@@ -7,10 +7,10 @@ const parseTSConfig = (
 ) => {
   const { config, error } = ts.readConfigFile(tsconfigPath, ts.sys.readFile);
 
-  const parsedConfig = ts.parseJsonConfigFileContent(config, ts.sys, rootDir);
+  const parsedTSConfig = ts.parseJsonConfigFileContent(config, ts.sys, rootDir);
 
   return {
-    config: parsedConfig,
+    config: parsedTSConfig,
     error,
   };
 };
