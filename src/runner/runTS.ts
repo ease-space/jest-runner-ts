@@ -12,8 +12,8 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
   const start = Date.now();
 
   const { program, error } = createTSProgram(
-    config.rootDir,
     testPath,
+    config.rootDir,
     extraOptions.tsconfigPath,
   );
 
@@ -29,7 +29,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
     return fail({
       ...baseObj,
       end: Date.now(),
-      errorMessage: error,
+      errorMessage: error.messageText.toString(),
     });
   }
 
