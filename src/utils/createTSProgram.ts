@@ -6,8 +6,10 @@ const createTSProgram = (
   testPath: string,
   tsconfigPath: string = path.resolve(rootDir, 'tsconfig.json'),
 ) => {
+  const currentWorkDir = process.cwd();
+
   const configFile = ts.findConfigFile(
-    process.cwd(),
+    currentWorkDir,
     ts.sys.fileExists,
     tsconfigPath,
   );
@@ -18,7 +20,7 @@ const createTSProgram = (
     const parsedConfig = ts.parseJsonConfigFileContent(
       config,
       ts.sys,
-      path.dirname(tsconfigPath),
+      currentWorkDir,
     );
 
     const program = ts.createProgram([testPath], {
