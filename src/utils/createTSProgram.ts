@@ -6,25 +6,33 @@ const createTSProgram = (
   testPath: string,
   tsconfigPath: string = path.resolve(rootDir, 'tsconfig.json'),
 ) => {
-  const configFile = ts.findConfigFile(tsconfigPath, ts.sys.fileExists);
-
-  const { config, error } = ts.readConfigFile(configFile, ts.sys.readFile);
-
-  const parsedConfig = ts.parseJsonConfigFileContent(
-    config,
-    ts.sys,
-    path.dirname(tsconfigPath),
+  const configFile = ts.findConfigFile(
+    process.cwd(),
+    ts.sys.fileExists,
+    tsconfigPath,
   );
 
-  const program = ts.createProgram([testPath], {
-    noEmit: true,
-    ...parsedConfig.options,
-  });
+  if (configFile) {
+    const { config, error } = ts.readConfigFile(configFile, ts.sys.readFile);
 
-  return {
-    program,
-    error,
-  };
+    const parsedConfig = ts.parseJsonConfigFileContent(
+      config,
+      ts.sys,
+      path.dirname(tsconfigPath),
+    );
+
+    const program = ts.createProgram([testPath], {
+      noEmit: true,
+      ...parsedConfig.options,
+    });
+
+    return {
+      program,
+      error,
+    };
+  } else {
+    throw new Error(`${tsconfigPath} not found`);
+  }
 };
 
 export default createTSProgram;
