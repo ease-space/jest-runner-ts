@@ -6,11 +6,11 @@ const parseTSCompilerOptions = (
   rootDir: string = process.cwd(),
   tsconfigPath: string = path.resolve(rootDir, 'tsconfig.json'),
 ) => {
-  const tsconfigResult = tsconfig.getTsconfig(tsconfigPath);
+  const tsconfigResult = tsconfig.parseTsconfig(tsconfigPath);
 
   if (tsconfigResult) {
     const { options } = ts.convertCompilerOptionsFromJson(
-      tsconfigResult.config.compilerOptions,
+      tsconfigResult.compilerOptions,
       rootDir,
     );
 
