@@ -1,4 +1,3 @@
-import path from 'path';
 import ts from 'typescript';
 
 import parseTSConfig from './parseTSConfig';
