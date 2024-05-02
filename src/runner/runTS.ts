@@ -20,7 +20,9 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
   const baseObj = {
     start,
     title: 'tsc',
-    test: { path: testPath },
+    test: {
+      path: testPath,
+    },
   };
 
   if (error) {
