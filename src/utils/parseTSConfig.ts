@@ -9,14 +9,14 @@ const parseTSConfig = (
 
   const tsconfigFile = ts.readConfigFile(tsconfigPath, ts.sys.readFile);
 
-  const tsconfig = ts.parseJsonConfigFileContent(
+  const config = ts.parseJsonConfigFileContent(
     tsconfigFile.config,
     ts.sys,
     currentWorkDir,
   );
 
   return {
-    tsconfig,
+    config,
     error: tsconfigFile.error,
   };
 };
