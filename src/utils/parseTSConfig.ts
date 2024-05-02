@@ -7,28 +7,18 @@ const parseTSConfig = (
 ) => {
   const currentWorkDir = process.cwd();
 
-  const configFile = ts.findConfigFile(
+  const tsconfigFile = ts.readConfigFile(tsconfigPath, ts.sys.readFile);
+
+  const tsconfig = ts.parseJsonConfigFileContent(
+    tsconfigFile.config,
+    ts.sys,
     currentWorkDir,
-    ts.sys.fileExists,
-    tsconfigPath,
   );
 
-  if (configFile) {
-    const tsconfigFile = ts.readConfigFile(tsconfigPath, ts.sys.readFile);
-
-    const tsconfig = ts.parseJsonConfigFileContent(
-      tsconfigFile.config,
-      ts.sys,
-      currentWorkDir,
-    );
-
-    return {
-      tsconfig,
-      error: tsconfigFile.error,
-    };
-  } else {
-    throw new Error(`Cannot find tsconfig file: ${tsconfigPath}`);
-  }
+  return {
+    tsconfig,
+    error: tsconfigFile.error,
+  };
 };
 
 export default parseTSConfig;
