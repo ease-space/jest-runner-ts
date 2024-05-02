@@ -19,8 +19,8 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
 
   const baseObj = {
     start,
-    title: 'ts',
     test: {
+      title: 'ts',
       path: testPath,
     },
   };
