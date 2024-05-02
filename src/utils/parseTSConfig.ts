@@ -3,7 +3,6 @@ import ts from 'typescript';
 
 const parseTSConfig = (
   rootDir: string,
-  testPath: string,
   tsconfigPath: string = path.resolve(rootDir, 'tsconfig.json'),
 ) => {
   const currentWorkDir = process.cwd();
@@ -23,13 +22,8 @@ const parseTSConfig = (
       currentWorkDir,
     );
 
-    const program = ts.createProgram([testPath], {
-      noEmit: true,
-      ...parsedConfig.options,
-    });
-
     return {
-      program,
+      parsedConfig,
       error,
     };
   } else {
