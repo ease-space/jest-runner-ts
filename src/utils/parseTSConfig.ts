@@ -7,17 +7,17 @@ const parseTSConfig = (
 ) => {
   const currentWorkDir = process.cwd();
 
-  const tsconfigFile = ts.readConfigFile(tsconfigPath, ts.sys.readFile);
+  const { config, error } = ts.readConfigFile(tsconfigPath, ts.sys.readFile);
 
-  const config = ts.parseJsonConfigFileContent(
-    tsconfigFile.config,
+  const parsedConfig = ts.parseJsonConfigFileContent(
+    config,
     ts.sys,
     currentWorkDir,
   );
 
   return {
-    config,
-    error: tsconfigFile.error,
+    parsedConfig,
+    error,
   };
 };
 
