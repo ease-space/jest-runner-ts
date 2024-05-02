@@ -1,5 +1,4 @@
 import path from 'path';
-import fs from 'fs';
 import ts from 'typescript';
 
 const createTSProgram = (
@@ -7,18 +6,20 @@ const createTSProgram = (
   testPath: string,
   tsconfigPath: string = path.resolve(rootDir, 'tsconfig.json'),
 ) => {
-  const tsconfigJsonText = fs.readFileSync(tsconfigPath).toString();
+  const configFile = ts.findConfigFile(tsconfigPath, ts.sys.fileExists);
 
-  const { config, error } = ts.parseConfigFileTextToJson(
-    tsconfigPath,
-    tsconfigJsonText,
+  const { config, error } = ts.readConfigFile(configFile, ts.sys.readFile);
+
+  const parsedConfig = ts.parseJsonConfigFileContent(
+    config,
+    ts.sys,
+    path.dirname(tsconfigPath),
   );
 
-  const settings = ts.convertCompilerOptionsFromJson(config, process.cwd());
-
-  const options = Object.assign({}, { noEmit: true }, settings.options);
-
-  const program = ts.createProgram([testPath], options);
+  const program = ts.createProgram([testPath], {
+    noEmit: true,
+    ...parsedConfig.options,
+  });
 
   return {
     program,
