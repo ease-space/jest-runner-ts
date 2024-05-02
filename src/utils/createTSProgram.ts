@@ -33,7 +33,7 @@ const createTSProgram = (
       error,
     };
   } else {
-    throw new Error(`${tsconfigPath} not found`);
+    throw new Error(`Cannot find tsconfig file: ${tsconfigPath}`);
   }
 };
 
