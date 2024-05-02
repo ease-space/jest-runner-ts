@@ -4,10 +4,10 @@ import parseTSConfig from './parseTSConfig';
 
 const createTSProgram = (
   testPath: string,
-  jestRootDir?: string,
+  rootDir?: string,
   tsconfigPath?: string,
 ) => {
-  const { config, error } = parseTSConfig(jestRootDir, tsconfigPath);
+  const { config, error } = parseTSConfig(rootDir, tsconfigPath);
 
   const program = ts.createProgram([testPath], {
     noEmit: true,
