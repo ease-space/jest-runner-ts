@@ -3,11 +3,11 @@ import ts from 'typescript';
 import parseTSConfig from './parseTSConfig';
 
 const createTSProgram = (
-  rootDir: string,
   testPath: string,
+  jestRootDir?: string,
   tsconfigPath?: string,
 ) => {
-  const { config, error } = parseTSConfig(rootDir, tsconfigPath);
+  const { config, error } = parseTSConfig(jestRootDir, tsconfigPath);
 
   const program = ts.createProgram([testPath], {
     noEmit: true,
