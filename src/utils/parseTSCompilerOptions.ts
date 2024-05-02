@@ -16,6 +16,8 @@ const parseTSCompilerOptions = (
 
     return options;
   }
+
+  return {};
 };
 
 export default parseTSCompilerOptions;
