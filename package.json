@@ -19,7 +19,8 @@
   },
   "dependencies": {
     "cosmiconfig": "9.0.0",
-    "create-jest-runner": "0.12.3"
+    "create-jest-runner": "0.12.3",
+    "lodash.memoize": "4.1.2"
   },
   "devDependencies": {
     "@babel/cli": "7.24.1",
@@ -27,6 +28,7 @@
     "@babel/preset-env": "7.24.4",
     "@babel/preset-typescript": "7.24.1",
     "@tsconfig/recommended": "1.0.6",
+    "@types/lodash.memoize": "4.1.9",
     "@typescript-eslint/eslint-plugin": "7.8.0",
     "@typescript-eslint/parser": "7.8.0",
     "eslint": "8.57.0",
