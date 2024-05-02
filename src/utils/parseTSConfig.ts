@@ -14,17 +14,17 @@ const parseTSConfig = (
   );
 
   if (configFile) {
-    const { config, error } = ts.readConfigFile(configFile, ts.sys.readFile);
+    const tsconfigFile = ts.readConfigFile(tsconfigPath, ts.sys.readFile);
 
-    const parsedConfig = ts.parseJsonConfigFileContent(
-      config,
+    const tsconfig = ts.parseJsonConfigFileContent(
+      tsconfigFile.config,
       ts.sys,
       currentWorkDir,
     );
 
     return {
-      parsedConfig,
-      error,
+      tsconfig,
+      error: tsconfigFile.error,
     };
   } else {
     throw new Error(`Cannot find tsconfig file: ${tsconfigPath}`);
