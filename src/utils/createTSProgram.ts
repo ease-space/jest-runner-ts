@@ -1,23 +1,20 @@
+import path from 'path';
+import tsconfig from 'get-tsconfig';
 import ts from 'typescript';
 
-import parseTSConfig from './parseTSConfig';
-
 const createTSProgram = (
+  rootDir: string = process.cwd(),
   testPath: string,
-  rootDir?: string,
-  tsconfigPath?: string,
+  tsconfigPath: string = path.resolve(rootDir, 'tsconfig.json'),
 ) => {
-  const { config, error } = parseTSConfig(rootDir, tsconfigPath);
+  const config = tsconfig.parseTsconfig(tsconfigPath);
 
-  const program = ts.createProgram([testPath], {
+  console.log('config', config);
+
+  return ts.createProgram([testPath], {
     noEmit: true,
-    ...config.options,
+    ...config.compilerOptions,
   });
-
-  return {
-    program,
-    error,
-  };
 };
 
 export default createTSProgram;
