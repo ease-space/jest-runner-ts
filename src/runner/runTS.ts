@@ -1,4 +1,4 @@
-import { RunTestOptions } from 'create-jest-runner';
+import { RunTestOptions, fail } from 'create-jest-runner';
 
 import createTSProgram from '../utils/createTSProgram';
 
@@ -11,9 +11,9 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
 
   const start = Date.now();
 
-  const program = createTSProgram(
-    config.rootDir,
+  const { error } = createTSProgram(
     testPath,
+    config.rootDir,
     extraOptions.tsconfigPath,
   );
 
@@ -24,4 +24,12 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
       path: testPath,
     },
   };
+
+  if (error) {
+    return fail({
+      ...baseStatus,
+      end: Date.now(),
+      errorMessage: error.messageText.toString(),
+    });
+  }
 };
