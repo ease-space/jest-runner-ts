@@ -2,16 +2,12 @@ import path from 'path';
 import ts from 'typescript';
 
 const parseTSConfig = (
-  jestRootDir: string = process.cwd(),
-  tsconfigPath: string = path.resolve(jestRootDir, 'tsconfig.json'),
+  rootDir: string = process.cwd(),
+  tsconfigPath: string = path.resolve(rootDir, 'tsconfig.json'),
 ) => {
   const { config, error } = ts.readConfigFile(tsconfigPath, ts.sys.readFile);
 
-  const parsedConfig = ts.parseJsonConfigFileContent(
-    config,
-    ts.sys,
-    jestRootDir,
-  );
+  const parsedConfig = ts.parseJsonConfigFileContent(config, ts.sys, rootDir);
 
   return {
     config: parsedConfig,
