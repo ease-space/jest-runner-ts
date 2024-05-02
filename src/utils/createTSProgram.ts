@@ -1,23 +1,18 @@
 import ts from 'typescript';
 
-import parseTSConfig from './parseTSConfig';
+import parseTSCompilerOptions from './parseTSCompilerOptions';
 
 const createTSProgram = (
   testPath: string,
   rootDir?: string,
   tsconfigPath?: string,
 ) => {
-  const { config, error } = parseTSConfig(rootDir, tsconfigPath);
+  const compilerOptions = parseTSCompilerOptions(rootDir, tsconfigPath);
 
-  const program = ts.createProgram([testPath], {
+  return ts.createProgram([testPath], {
     noEmit: true,
-    ...config.options,
+    ...compilerOptions,
   });
-
-  return {
-    program,
-    error,
-  };
 };
 
 export default createTSProgram;
