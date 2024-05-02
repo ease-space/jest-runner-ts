@@ -17,7 +17,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
     extraOptions.tsconfigPath,
   );
 
-  const baseObj = {
+  const baseStatus = {
     start,
     test: {
       title: 'ts',
@@ -27,7 +27,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
 
   if (error) {
     return fail({
-      ...baseObj,
+      ...baseStatus,
       end: Date.now(),
       errorMessage: error.messageText.toString(),
     });
