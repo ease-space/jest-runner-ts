@@ -16,7 +16,7 @@ const parseTSConfig = (
   );
 
   return {
-    parsedConfig,
+    config: parsedConfig,
     error,
   };
 };
