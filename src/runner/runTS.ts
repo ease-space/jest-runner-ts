@@ -1,5 +1,8 @@
 import { RunTestOptions, fail } from 'create-jest-runner';
-import ts from 'typescript';
+import {
+  getPreEmitDiagnostics,
+  flattenDiagnosticMessageText,
+} from 'typescript';
 
 import createTSProgram from '../utils/createTSProgram';
 
@@ -32,7 +35,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
     return fail({
       ...baseStatus,
       end: Date.now(),
-      errorMessage: `${ts.flattenDiagnosticMessageText(
+      errorMessage: `${flattenDiagnosticMessageText(
         error.messageText,
         newLine,
       )}`,
@@ -41,15 +44,15 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
 
   const emitResult = program.emit();
 
-  const allDiagnostics = ts
-    .getPreEmitDiagnostics(program)
-    .concat(emitResult.diagnostics);
+  const allDiagnostics = getPreEmitDiagnostics(program).concat(
+    emitResult.diagnostics,
+  );
 
   const errors = allDiagnostics.map((diagnostic) => {
     if (diagnostic.file) {
     } else {
       return {
-        errorMessage: `${ts.flattenDiagnosticMessageText(
+        errorMessage: `${flattenDiagnosticMessageText(
           diagnostic.messageText,
           newLine,
         )}`,
