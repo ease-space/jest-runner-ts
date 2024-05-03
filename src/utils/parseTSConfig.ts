@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import { readConfigFile, parseJsonConfigFileContent, sys } from 'typescript';
+import { sys, readConfigFile, parseJsonConfigFileContent } from 'typescript';
 
 const parseTSConfig = (
   rootDir: string = process.cwd(),
