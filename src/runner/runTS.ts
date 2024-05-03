@@ -47,11 +47,6 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
 
   const errors = allDiagnostics.map((diagnostic) => {
     if (diagnostic.file) {
-      // const errorMessage = flattenDiagnosticMessageText(
-      //   diagnostic.messageText,
-      //   newLine,
-      // );
-
       return {
         errorMessage: flattenDiagnosticMessageText(
           diagnostic.messageText,
@@ -59,11 +54,6 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
         ),
       };
     } else {
-      // const errorMessage = flattenDiagnosticMessageText(
-      //   diagnostic.messageText,
-      //   newLine,
-      // );
-
       return {
         errorMessage: flattenDiagnosticMessageText(
           diagnostic.messageText,
