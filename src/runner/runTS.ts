@@ -12,6 +12,8 @@ type ExtraOptions = {
 
 const newLine = '\n';
 
+const newParagraph = '\n\n';
+
 module.exports = (options: RunTestOptions<ExtraOptions>) => {
   const { testPath, config, extraOptions } = options;
 
@@ -75,6 +77,6 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
   return fail({
     ...baseStatus,
     end,
-    errorMessage: errors.join(newLine),
+    errorMessage: errors.join(newParagraph),
   });
 };
