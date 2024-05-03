@@ -1,4 +1,5 @@
 import { RunTestOptions, fail } from 'create-jest-runner';
+import ts from 'typescript';
 
 import createTSProgram from '../utils/createTSProgram';
 
@@ -11,7 +12,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
 
   const start = Date.now();
 
-  const { error } = createTSProgram(
+  const { program, error } = createTSProgram(
     testPath,
     config.rootDir,
     extraOptions.tsconfigPath,
@@ -32,4 +33,12 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
       errorMessage: error.messageText.toString(),
     });
   }
+
+  const emitResult = program.emit();
+
+  const allDiagnostics = ts
+    .getPreEmitDiagnostics(program)
+    .concat(emitResult.diagnostics);
+
+  console.log('allDiagnostics', emitResult.diagnostics.toString());
 };
