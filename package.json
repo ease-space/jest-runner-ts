@@ -19,8 +19,7 @@
   },
   "dependencies": {
     "cosmiconfig": "9.0.0",
-    "create-jest-runner": "0.12.3",
-    "get-tsconfig": "4.7.3"
+    "create-jest-runner": "0.12.3"
   },
   "devDependencies": {
     "@babel/cli": "7.24.1",
