@@ -35,10 +35,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
     return fail({
       ...baseStatus,
       end: Date.now(),
-      errorMessage: `${flattenDiagnosticMessageText(
-        error.messageText,
-        newLine,
-      )}`,
+      errorMessage: flattenDiagnosticMessageText(error.messageText, newLine),
     });
   }
 
@@ -52,10 +49,10 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
     if (diagnostic.file) {
     } else {
       return {
-        errorMessage: `${flattenDiagnosticMessageText(
+        errorMessage: flattenDiagnosticMessageText(
           diagnostic.messageText,
           newLine,
-        )}`,
+        ),
       };
     }
   });
