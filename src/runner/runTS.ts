@@ -1,6 +1,7 @@
 import { RunTestOptions, fail } from 'create-jest-runner';
 import {
   getPreEmitDiagnostics,
+  getLineAndCharacterOfPosition,
   flattenDiagnosticMessageText,
 } from 'typescript';
 
@@ -47,6 +48,12 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
 
   const errors = allDiagnostics.map((diagnostic) => {
     if (diagnostic.file) {
+      const startPosition = Number(diagnostic.start);
+
+      const { line, character } = getLineAndCharacterOfPosition(
+        diagnostic.file,
+        startPosition,
+      );
     } else {
       return {
         errorMessage: flattenDiagnosticMessageText(
