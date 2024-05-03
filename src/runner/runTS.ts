@@ -7,6 +7,8 @@ type ExtraOptions = {
   tsconfigPath?: string;
 };
 
+const newLine = '\n';
+
 module.exports = (options: RunTestOptions<ExtraOptions>) => {
   const { testPath, config, extraOptions } = options;
 
@@ -40,5 +42,15 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
     .getPreEmitDiagnostics(program)
     .concat(emitResult.diagnostics);
 
-  console.log('allDiagnostics', emitResult.diagnostics.toString());
+  const errors = allDiagnostics.map((diagnostic) => {
+    if (diagnostic.file) {
+    } else {
+      return {
+        errorMessage: `${ts.flattenDiagnosticMessageText(
+          diagnostic.messageText,
+          newLine,
+        )}`,
+      };
+    }
+  });
 };
