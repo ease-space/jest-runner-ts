@@ -1,4 +1,4 @@
-import { RunTestOptions, fail } from 'create-jest-runner';
+import { RunTestOptions, fail, pass } from 'create-jest-runner';
 import {
   getPreEmitDiagnostics,
   flattenDiagnosticMessageText,
@@ -47,23 +47,44 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
 
   const errors = allDiagnostics.map((diagnostic) => {
     if (diagnostic.file) {
-      const errorMessage = flattenDiagnosticMessageText(
-        diagnostic.messageText,
-        newLine,
-      );
+      // const errorMessage = flattenDiagnosticMessageText(
+      //   diagnostic.messageText,
+      //   newLine,
+      // );
 
       return {
-        errorMessage,
+        errorMessage: flattenDiagnosticMessageText(
+          diagnostic.messageText,
+          newLine,
+        ),
       };
     } else {
-      const errorMessage = flattenDiagnosticMessageText(
-        diagnostic.messageText,
-        newLine,
-      );
+      // const errorMessage = flattenDiagnosticMessageText(
+      //   diagnostic.messageText,
+      //   newLine,
+      // );
 
       return {
-        errorMessage,
+        errorMessage: flattenDiagnosticMessageText(
+          diagnostic.messageText,
+          newLine,
+        ),
       };
     }
+  });
+
+  const end = Date.now();
+
+  if (errors.length === 0) {
+    return pass({
+      ...baseStatus,
+      end,
+    });
+  }
+
+  return fail({
+    ...baseStatus,
+    errorMessage: errors.join(newLine),
+    end,
   });
 };
