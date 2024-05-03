@@ -74,7 +74,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
 
   return fail({
     ...baseStatus,
-    errorMessage: errors.join(newLine),
     end,
+    errorMessage: errors.join(newLine),
   });
 };
