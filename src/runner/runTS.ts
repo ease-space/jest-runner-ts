@@ -1,7 +1,7 @@
 import { RunTestOptions, fail, pass } from 'create-jest-runner';
 import {
-  getPreEmitDiagnostics,
   flattenDiagnosticMessageText,
+  getPreEmitDiagnostics,
 } from 'typescript';
 
 import createTSProgram from '../utils/createTSProgram';
