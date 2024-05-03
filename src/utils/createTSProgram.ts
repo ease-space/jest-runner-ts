@@ -1,4 +1,4 @@
-import ts from 'typescript';
+import { createProgram } from 'typescript';
 
 import parseTSConfig from './parseTSConfig';
 
@@ -9,7 +9,7 @@ const createTSProgram = (
 ) => {
   const { config, error } = parseTSConfig(rootDir, tsconfigPath);
 
-  const program = ts.createProgram([testPath], {
+  const program = createProgram([testPath], {
     noEmit: true,
     ...config.options,
   });
