@@ -1,9 +1,9 @@
-import path from 'path';
+import { resolve } from 'path';
 import { readConfigFile, parseJsonConfigFileContent, sys } from 'typescript';
 
 const parseTSConfig = (
   rootDir: string = process.cwd(),
-  tsconfigPath: string = path.resolve(rootDir, 'tsconfig.json'),
+  tsconfigPath: string = resolve(rootDir, 'tsconfig.json'),
 ) => {
   const { config, error } = readConfigFile(tsconfigPath, sys.readFile);
 
