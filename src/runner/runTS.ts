@@ -50,9 +50,16 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
     if (diagnostic.file) {
       const startPosition = Number(diagnostic.start);
 
-      const { line, character } = getLineAndCharacterOfPosition(
+      const endPosition = startPosition + Number(diagnostic.length);
+
+      const lineAndCharacterStart = getLineAndCharacterOfPosition(
         diagnostic.file,
         startPosition,
+      );
+
+      const lineAndCharacterEnd = getLineAndCharacterOfPosition(
+        diagnostic.file,
+        endPosition,
       );
     } else {
       return {
