@@ -1,6 +1,6 @@
-import cosmiconfig from 'cosmiconfig';
+import { cosmiconfigSync } from 'cosmiconfig';
 
-const explorerSync = cosmiconfig.cosmiconfigSync('jest-runner-ts');
+const explorerSync = cosmiconfigSync('jest-runner-ts');
 
 const getExtraOptions = () => {
   const searched = explorerSync.search();
