@@ -32,7 +32,10 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
     return fail({
       ...baseStatus,
       end: Date.now(),
-      errorMessage: error.messageText.toString(),
+      errorMessage: `${ts.flattenDiagnosticMessageText(
+        error.messageText,
+        newLine,
+      )}`,
     });
   }
 
