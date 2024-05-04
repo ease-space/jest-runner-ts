@@ -4,7 +4,6 @@ import {
   getPreEmitDiagnostics,
   getLineAndCharacterOfPosition,
 } from 'typescript';
-import { EOL } from 'os';
 
 import createTSProgram from '../utils/createTSProgram';
 import createCodeFrame from '../utils/createCodeFrame';
@@ -35,7 +34,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
   if (error) {
     const end = Date.now();
 
-    const errorMessage = flattenDiagnosticMessageText(error.messageText, EOL);
+    const errorMessage = flattenDiagnosticMessageText(error.messageText, '\n');
 
     return fail({
       ...baseStatus,
@@ -55,7 +54,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
       if (diagnostic.file) {
         const errorMessage = flattenDiagnosticMessageText(
           diagnostic.messageText,
-          EOL,
+          '\n',
         );
 
         // const { line: lineStart, character: characterStart } =
@@ -86,7 +85,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
       } else {
         const errorMessage = flattenDiagnosticMessageText(
           diagnostic.messageText,
-          EOL,
+          '\n',
         );
 
         return {
@@ -112,7 +111,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
     });
   }
 
-  const errorMessage = errors.join(EOL.concat(EOL));
+  const errorMessage = errors.join('\n\n');
 
   return fail({
     ...baseStatus,
