@@ -2,10 +2,11 @@ import { RunTestOptions, fail, pass } from 'create-jest-runner';
 import {
   flattenDiagnosticMessageText,
   getPreEmitDiagnostics,
+  getLineAndCharacterOfPosition,
 } from 'typescript';
 
 import createTSProgram from '../utils/createTSProgram';
-import createErrorCodeFrame from '../utils/createErrorCodeFrame';
+import createCodeFrame from '../utils/createCodeFrame';
 
 type ExtraOptions = {
   tsconfigPath?: string;
@@ -35,10 +36,17 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
   };
 
   if (error) {
+    const end = Date.now();
+
+    const errorMessage = flattenDiagnosticMessageText(
+      error.messageText,
+      newLine,
+    );
+
     return fail({
       ...baseStatus,
-      end: Date.now(),
-      errorMessage: flattenDiagnosticMessageText(error.messageText, newLine),
+      end,
+      errorMessage,
     });
   }
 
@@ -51,23 +59,50 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
   const errors = allDiagnostics
     .map((diagnostic) => {
       if (diagnostic.file) {
+        const errorMessage = flattenDiagnosticMessageText(
+          diagnostic.messageText,
+          newLine,
+        );
+
+        // const { line: lineStart, character: characterStart } =
+        //   getLineAndCharacterOfPosition(diagnostic.file, diagnostic.start);
+        //
+        // const { line: lineEnd, character: characterEnd } =
+        //   diagnostic.file.getLineAndCharacterOfPosition(
+        //     diagnostic.file,
+        //     diagnostic.start + diagnostic.length,
+        //   );
+        //
+        // const location = {
+        //   start: {
+        //     line: lineStart + 1,
+        //     column: characterStart + 1,
+        //   },
+        //   end: {
+        //     line: lineEnd + 1,
+        //     column: characterEnd + 1,
+        //   },
+        // };
+
         return {
-          errorMessage: flattenDiagnosticMessageText(
-            diagnostic.messageText,
-            newLine,
-          ),
+          ...diagnostic,
+          errorMessage,
+          location,
         };
       } else {
+        const errorMessage = flattenDiagnosticMessageText(
+          diagnostic.messageText,
+          newLine,
+        );
+
         return {
-          errorMessage: flattenDiagnosticMessageText(
-            diagnostic.messageText,
-            newLine,
-          ),
+          ...diagnostic,
+          errorMessage,
         };
       }
     })
-    .map(() => {
-      return createErrorCodeFrame();
+    .map((diagnostic) => {
+      //return createCodeFrame(diagnostic.file?.);
     });
 
   const end = Date.now();
@@ -79,9 +114,11 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
     });
   }
 
+  const errorMessage = errors.join(newParagraph);
+
   return fail({
     ...baseStatus,
     end,
-    errorMessage: errors.join(newParagraph),
+    errorMessage,
   });
 };
