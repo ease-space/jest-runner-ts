@@ -3,8 +3,8 @@ import fs from 'fs';
 
 const createCodeFrame = (
   filePath: string,
+  location: SourceLocation,
   message: string,
-  location?: SourceLocation,
 ) => {
   if (location) {
     const rawLines = fs.readFileSync(filePath, 'utf8');
