@@ -1,10 +1,10 @@
 import { codeFrameColumns, SourceLocation } from '@babel/code-frame';
 import { EOL } from 'os';
 
-const createCodeFrame = (
+const createCodeFrameMessage = (
+  message: string = '',
   rawLines?: string,
   location?: SourceLocation,
-  message: string = '',
 ) => {
   if (rawLines && location) {
     const codeFrame = codeFrameColumns(rawLines, location, {
@@ -17,4 +17,4 @@ const createCodeFrame = (
   }
 };
 
-export default createCodeFrame;
+export default createCodeFrameMessage;
