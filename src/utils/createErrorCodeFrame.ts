@@ -1,7 +1,7 @@
 import { codeFrameColumns } from '@babel/code-frame';
 import fs from 'fs';
 
-type CodeFrameErrorLocation = {
+type ErrorLocation = {
   start: {
     line: number;
     column: number;
@@ -15,7 +15,7 @@ type CodeFrameErrorLocation = {
 const createErrorCodeFrame = (
   filePath: string,
   errorMessage: string,
-  errorLocation: CodeFrameErrorLocation,
+  errorLocation: ErrorLocation,
 ) => {
   const rawLines = fs.readFileSync(filePath, 'utf8');
 
