@@ -13,8 +13,6 @@ type ExtraOptions = {
   tsconfigPath?: string;
 };
 
-const newParagraph = '\n\n';
-
 module.exports = (options: RunTestOptions<ExtraOptions>) => {
   const { testPath, config, extraOptions } = options;
 
@@ -114,7 +112,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
     });
   }
 
-  const errorMessage = errors.join(newParagraph);
+  const errorMessage = errors.join(EOL.concat(EOL));
 
   return fail({
     ...baseStatus,
