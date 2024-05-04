@@ -4,6 +4,7 @@ import {
   getPreEmitDiagnostics,
   getLineAndCharacterOfPosition,
 } from 'typescript';
+import { EOL } from 'os';
 
 import createTSProgram from '../utils/createTSProgram';
 import createCodeFrame from '../utils/createCodeFrame';
@@ -68,7 +69,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
         //   getLineAndCharacterOfPosition(diagnostic.file, diagnostic.start);
         //
         // const { line: lineEnd, character: characterEnd } =
-        //   diagnostic.file.getLineAndCharacterOfPosition(
+        //   getLineAndCharacterOfPosition(
         //     diagnostic.file,
         //     diagnostic.start + diagnostic.length,
         //   );
@@ -102,7 +103,11 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
       }
     })
     .map((diagnostic) => {
-      //return createCodeFrame(diagnostic.file?.);
+      // return createCodeFrame(
+      //   diagnostic.file?.text,
+      //   diagnostic.location,
+      //   diagnostic.errorMessage,
+      // );
     });
 
   const end = Date.now();
