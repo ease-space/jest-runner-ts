@@ -13,8 +13,6 @@ type ExtraOptions = {
   tsconfigPath?: string;
 };
 
-const newLine = '\n';
-
 const newParagraph = '\n\n';
 
 module.exports = (options: RunTestOptions<ExtraOptions>) => {
@@ -39,10 +37,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
   if (error) {
     const end = Date.now();
 
-    const errorMessage = flattenDiagnosticMessageText(
-      error.messageText,
-      newLine,
-    );
+    const errorMessage = flattenDiagnosticMessageText(error.messageText, EOL);
 
     return fail({
       ...baseStatus,
@@ -62,7 +57,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
       if (diagnostic.file) {
         const errorMessage = flattenDiagnosticMessageText(
           diagnostic.messageText,
-          newLine,
+          EOL,
         );
 
         // const { line: lineStart, character: characterStart } =
@@ -93,7 +88,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
       } else {
         const errorMessage = flattenDiagnosticMessageText(
           diagnostic.messageText,
-          newLine,
+          EOL,
         );
 
         return {
