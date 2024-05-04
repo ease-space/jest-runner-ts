@@ -5,6 +5,7 @@ import {
 } from 'typescript';
 
 import createTSProgram from '../utils/createTSProgram';
+import createErrorCodeFrame from '../utils/createErrorCodeFrame';
 
 type ExtraOptions = {
   tsconfigPath?: string;
@@ -47,23 +48,27 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
     emitResult.diagnostics,
   );
 
-  const errors = allDiagnostics.map((diagnostic) => {
-    if (diagnostic.file) {
-      return {
-        errorMessage: flattenDiagnosticMessageText(
-          diagnostic.messageText,
-          newLine,
-        ),
-      };
-    } else {
-      return {
-        errorMessage: flattenDiagnosticMessageText(
-          diagnostic.messageText,
-          newLine,
-        ),
-      };
-    }
-  });
+  const errors = allDiagnostics
+    .map((diagnostic) => {
+      if (diagnostic.file) {
+        return {
+          errorMessage: flattenDiagnosticMessageText(
+            diagnostic.messageText,
+            newLine,
+          ),
+        };
+      } else {
+        return {
+          errorMessage: flattenDiagnosticMessageText(
+            diagnostic.messageText,
+            newLine,
+          ),
+        };
+      }
+    })
+    .map(() => {
+      return createErrorCodeFrame();
+    });
 
   const end = Date.now();
 
