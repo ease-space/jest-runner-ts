@@ -1,5 +1,4 @@
 import { codeFrameColumns, SourceLocation } from '@babel/code-frame';
-import { EOL } from 'os';
 
 const createCodeFrame = (
   message: string = '',
@@ -11,7 +10,7 @@ const createCodeFrame = (
       highlightCode: true,
     });
 
-    return message.concat(EOL).concat(codeFrame);
+    return message.concat('\n').concat(codeFrame);
   } else {
     return message;
   }
