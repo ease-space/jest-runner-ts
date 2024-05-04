@@ -4,13 +4,17 @@ import fs from 'fs';
 const createCodeFrame = (
   filePath: string,
   message: string,
-  location: SourceLocation,
+  location?: SourceLocation,
 ) => {
-  const rawLines = fs.readFileSync(filePath, 'utf8');
+  if (location) {
+    const rawLines = fs.readFileSync(filePath, 'utf8');
 
-  return `${message}\n${codeFrameColumns(rawLines, location, {
-    highlightCode: true,
-  })}`;
+    return `${message}\n${codeFrameColumns(rawLines, location, {
+      highlightCode: true,
+    })}`;
+  } else {
+    return message;
+  }
 };
 
 export default createCodeFrame;
