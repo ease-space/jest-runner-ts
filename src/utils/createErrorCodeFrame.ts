@@ -11,10 +11,10 @@ type CodeFrameErrorLocation = {
   };
 };
 
-const createCodeFrame = (
+const createErrorCodeFrame = (
   filePath: string,
   errorMessage: string,
   errorLocation: CodeFrameErrorLocation,
 ) => {};
 
-export default createCodeFrame;
+export default createErrorCodeFrame;
