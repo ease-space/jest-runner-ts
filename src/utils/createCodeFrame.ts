@@ -1,16 +1,16 @@
 import { codeFrameColumns, SourceLocation } from '@babel/code-frame';
 import fs from 'fs';
 
-const createErrorCodeFrame = (
+const createCodeFrame = (
   filePath: string,
-  errorMessage: string,
-  errorLocation: SourceLocation,
+  message: string,
+  location: SourceLocation,
 ) => {
   const rawLines = fs.readFileSync(filePath, 'utf8');
 
-  return `${errorMessage}\n${codeFrameColumns(rawLines, errorLocation, {
+  return `${message}\n${codeFrameColumns(rawLines, location, {
     highlightCode: true,
   })}`;
 };
 
-export default createErrorCodeFrame;
+export default createCodeFrame;
