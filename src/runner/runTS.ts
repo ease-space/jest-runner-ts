@@ -64,12 +64,8 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
         location,
       };
     })
-    .map((diagnostic) => {
-      // return createCodeFrame(
-      //   diagnostic.errorMessage,
-      //   diagnostic.file?.text,
-      //   diagnostic.location,
-      // );
+    .map(({ file, errorMessage, location }) => {
+      return createCodeFrame(errorMessage, file?.text, location);
     });
 
   const end = Date.now();
