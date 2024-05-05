@@ -51,49 +51,6 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
 
   const errors = allDiagnostics
     .map((diagnostic) => {
-      // if (diagnostic.file) {
-      //   const errorMessage = flattenDiagnosticMessageText(
-      //     diagnostic.messageText,
-      //     '\n',
-      //   );
-      //
-      //   const { line: lineStart, character: characterStart } =
-      //     getLineAndCharacterOfPosition(diagnostic.file, diagnostic.start);
-      //
-      //   const { line: lineEnd, character: characterEnd } =
-      //     getLineAndCharacterOfPosition(
-      //       diagnostic.file,
-      //       diagnostic.start + diagnostic.length,
-      //     );
-      //
-      //   const location = {
-      //     start: {
-      //       line: lineStart + 1,
-      //       column: characterStart + 1,
-      //     },
-      //     end: {
-      //       line: lineEnd + 1,
-      //       column: characterEnd + 1,
-      //     },
-      //   };
-      //
-      //   return {
-      //     ...diagnostic,
-      //     errorMessage,
-      //     location,
-      //   };
-      // } else {
-      //   const errorMessage = flattenDiagnosticMessageText(
-      //     diagnostic.messageText,
-      //     '\n',
-      //   );
-      //
-      //   return {
-      //     ...diagnostic,
-      //     errorMessage,
-      //   };
-      // }
-
       const errorMessage = flattenDiagnosticMessageText(
         diagnostic.messageText,
         '\n',
