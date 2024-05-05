@@ -1,9 +1,9 @@
 import { Diagnostic, getLineAndCharacterOfPosition } from 'typescript';
 
 const getDiagnosticLocation = (diagnostic: Diagnostic) => {
-  const { file, start, length } = diagnostic;
+  const { file, start: startPosition, length: characterLength } = diagnostic;
 
-  if (file) {
+  if (file && typeof start === 'number') {
     const { line: lineStart, character: characterStart } =
       getLineAndCharacterOfPosition(file, start);
 
