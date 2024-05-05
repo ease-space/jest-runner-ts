@@ -65,17 +65,17 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
         //     diagnostic.file,
         //     diagnostic.start + diagnostic.length,
         //   );
-        //
-        // const location = {
-        //   start: {
-        //     line: lineStart + 1,
-        //     column: characterStart + 1,
-        //   },
-        //   end: {
-        //     line: lineEnd + 1,
-        //     column: characterEnd + 1,
-        //   },
-        // };
+
+        const location = {
+          start: {
+            line: lineStart + 1,
+            column: characterStart + 1,
+          },
+          end: {
+            line: lineEnd + 1,
+            column: characterEnd + 1,
+          },
+        };
 
         return {
           ...diagnostic,
@@ -96,9 +96,9 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
     })
     .map((diagnostic) => {
       // return createCodeFrame(
-      //   diagnostic.file?.text,
-      //   diagnostic.location,
       //   diagnostic.errorMessage,
+      //   diagnostic.file?.text,
+      //   diagnostic?.location,
       // );
     });
 
