@@ -10,7 +10,7 @@ const createCodeFrame = (
       highlightCode: true,
     });
 
-    return message.concat('\n').concat(codeFrame);
+    return message ? message.concat('\n').concat(codeFrame) : codeFrame;
   } else {
     return message;
   }
