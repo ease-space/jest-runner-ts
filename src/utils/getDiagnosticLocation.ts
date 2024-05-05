@@ -1,21 +1,16 @@
 import { Diagnostic, getLineAndCharacterOfPosition } from 'typescript';
 
 const getDiagnosticLocation = (diagnostic: Diagnostic) => {
-  const { file, start: startPosition, length: characterLength } = diagnostic;
+  const { file, start, length } = diagnostic;
 
   if (file) {
-    if (typeof startPosition === 'number') {
-      const lineAndCharacterStart = getLineAndCharacterOfPosition(
-        file,
-        startPosition,
-      );
+    if (typeof start === 'number') {
+      const lineAndCharacterStart = getLineAndCharacterOfPosition(file, start);
 
-      if (typeof characterLength === 'number') {
-        const endPosition = startPosition + characterLength;
-
+      if (typeof length === 'number') {
         const lineAndCharacterEnd = getLineAndCharacterOfPosition(
           file,
-          endPosition,
+          start + length,
         );
 
         return {
