@@ -9,8 +9,10 @@ const getDiagnosticLocation = (diagnostic: Diagnostic) => {
         getLineAndCharacterOfPosition(file, startPosition);
 
       if (typeof characterLength === 'number') {
+        const endPosition = startPosition + characterLength;
+
         const { line: lineEnd, character: characterEnd } =
-          getLineAndCharacterOfPosition(file, startPosition + characterLength);
+          getLineAndCharacterOfPosition(file, endPosition);
 
         return {
           start: {
