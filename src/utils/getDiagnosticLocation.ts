@@ -6,11 +6,11 @@ const getDiagnosticLocation = (diagnostic: Diagnostic) => {
   if (file) {
     if (typeof startPosition === 'number') {
       const { line: lineStart, character: characterStart } =
-        getLineAndCharacterOfPosition(file, start);
+        getLineAndCharacterOfPosition(file, startPosition);
 
       if (typeof characterLength === 'number') {
         const { line: lineEnd, character: characterEnd } =
-          getLineAndCharacterOfPosition(file, start + length);
+          getLineAndCharacterOfPosition(file, startPosition + characterLength);
 
         return {
           start: {
