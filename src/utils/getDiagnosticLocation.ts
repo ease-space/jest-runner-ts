@@ -5,31 +5,35 @@ const getDiagnosticLocation = (diagnostic: Diagnostic) => {
 
   if (file) {
     if (typeof startPosition === 'number') {
-      const { line: lineStart, character: characterStart } =
-        getLineAndCharacterOfPosition(file, startPosition);
+      const lineAndCharacterStart = getLineAndCharacterOfPosition(
+        file,
+        startPosition,
+      );
 
       if (typeof characterLength === 'number') {
         const endPosition = startPosition + characterLength;
 
-        const { line: lineEnd, character: characterEnd } =
-          getLineAndCharacterOfPosition(file, endPosition);
+        const lineAndCharacterEnd = getLineAndCharacterOfPosition(
+          file,
+          endPosition,
+        );
 
         return {
           start: {
-            line: lineStart + 1,
-            column: characterStart + 1,
+            line: lineAndCharacterStart.line + 1,
+            column: lineAndCharacterStart.character + 1,
           },
           end: {
-            line: lineEnd + 1,
-            column: characterEnd + 1,
+            line: lineAndCharacterEnd.line + 1,
+            column: lineAndCharacterEnd.character + 1,
           },
         };
       }
 
       return {
         start: {
-          line: lineStart + 1,
-          column: characterStart + 1,
+          line: lineAndCharacterStart.line + 1,
+          column: lineAndCharacterStart.character + 1,
         },
       };
     }
