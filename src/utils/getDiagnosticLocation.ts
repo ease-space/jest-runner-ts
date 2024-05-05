@@ -7,7 +7,7 @@ const getDiagnosticLocation = (diagnostic: Diagnostic) => {
     if (typeof start === 'number') {
       const lineAndCharacterStart = getLineAndCharacterOfPosition(file, start);
 
-      const location = {
+      const locationStart = {
         start: {
           line: lineAndCharacterStart.line + 1,
           column: lineAndCharacterStart.character + 1,
@@ -21,7 +21,7 @@ const getDiagnosticLocation = (diagnostic: Diagnostic) => {
         );
 
         return {
-          ...location,
+          ...locationStart,
           end: {
             line: lineAndCharacterEnd.line + 1,
             column: lineAndCharacterEnd.character + 1,
@@ -29,7 +29,7 @@ const getDiagnosticLocation = (diagnostic: Diagnostic) => {
         };
       }
 
-      return location;
+      return locationStart;
     }
   }
 };
