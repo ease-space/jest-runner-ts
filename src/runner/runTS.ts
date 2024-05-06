@@ -1,4 +1,4 @@
-import { RunTestOptions, fail, pass } from 'create-jest-runner';
+import { RunTestOptions, fail, skip, pass } from 'create-jest-runner';
 import {
   flattenDiagnosticMessageText,
   getPreEmitDiagnostics,
@@ -17,7 +17,7 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
 
   const start = Date.now();
 
-  const { program, error } = createTSProgram(
+  const { program, testPaths, error } = createTSProgram(
     testPath,
     config.rootDir,
     extraOptions.tsconfigPath,
@@ -43,45 +43,54 @@ module.exports = (options: RunTestOptions<ExtraOptions>) => {
     });
   }
 
-  const emitResult = program.emit();
+  if (testPaths.includes(testPath)) {
+    const emitResult = program.emit();
 
-  const allDiagnostics = getPreEmitDiagnostics(program).concat(
-    emitResult.diagnostics,
-  );
+    const allDiagnostics = getPreEmitDiagnostics(program).concat(
+      emitResult.diagnostics,
+    );
 
-  const errors = allDiagnostics
-    .map((diagnostic) => {
-      const errorMessage = flattenDiagnosticMessageText(
-        diagnostic.messageText,
-        '\n',
-      );
+    const errors = allDiagnostics
+      .map((diagnostic) => {
+        const errorMessage = flattenDiagnosticMessageText(
+          diagnostic.messageText,
+          '\n',
+        );
 
-      const location = getDiagnosticLocation(diagnostic);
+        const location = getDiagnosticLocation(diagnostic);
 
-      return {
-        ...diagnostic,
-        errorMessage,
-        location,
-      };
-    })
-    .map(({ file, errorMessage, location }) => {
-      return createCodeFrame(errorMessage, file?.text, location);
+        return {
+          ...diagnostic,
+          errorMessage,
+          location,
+        };
+      })
+      .map(({ file, errorMessage, location }) => {
+        return createCodeFrame(errorMessage, file?.text, location);
+      });
+
+    const end = Date.now();
+
+    if (errors.length === 0) {
+      return pass({
+        ...baseStatus,
+        end,
+      });
+    }
+
+    const errorMessage = errors.join('\n\n');
+
+    return fail({
+      ...baseStatus,
+      end,
+      errorMessage,
     });
+  } else {
+    const end = Date.now();
 
-  const end = Date.now();
-
-  if (errors.length === 0) {
-    return pass({
+    return skip({
       ...baseStatus,
       end,
     });
   }
-
-  const errorMessage = errors.join('\n\n');
-
-  return fail({
-    ...baseStatus,
-    end,
-    errorMessage,
-  });
 };
