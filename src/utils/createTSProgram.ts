@@ -16,7 +16,7 @@ const createTSProgram = (
 
   return {
     program,
-    testPaths: config.fileNames,
+    config,
     error,
   };
 };
