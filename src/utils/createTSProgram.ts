@@ -6,13 +6,13 @@ const createTSProgram = (
   testPath: string,
   rootDir?: string,
   tsconfigPath?: string,
-  noEmit: boolean = true,
+  noEmit?: boolean,
 ) => {
   const { config, error } = parseTSConfig(rootDir, tsconfigPath);
 
   const program = createProgram([testPath], {
     ...config.options,
-    noEmit: config.options.noEmit ?? noEmit,
+    noEmit: noEmit ?? config.options.noEmit,
   });
 
   return {
