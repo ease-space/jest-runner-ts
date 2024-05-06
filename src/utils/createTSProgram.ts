@@ -12,7 +12,7 @@ const createTSProgram = (
 
   const program = createProgram([testPath], {
     ...config.options,
-    noEmit,
+    noEmit: config.options.noEmit ?? noEmit,
   });
 
   return {
